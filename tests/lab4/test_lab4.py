@@ -38,10 +38,19 @@ class OrderTestCase(unittest.TestCase):
 
 
 class OrdersAdapterTestCase(unittest.TestCase):
+    orders_data = [Order('31987;Сыр, Колбаса, Сыр, Макароны, Колбаса;Петрова Анна;Россия. Ленинградская область. Санкт-Петербург. набережная реки Фонтанки;+7-921-456-78-90;MIDDLE'.split(";")),
+                   Order('87459;Молоко, Яблоки, Хлеб, Яблоки, Молоко;Иванов Иван Иванович;Россия. Московская область. Москва. улица Пушкина;+7-912-345-67-89;MAX'.split(";")),
+                   Order('31987;Сыр, Колбаса, Макароны, Сыр, Колбаса;Петрова Анна Сергеевна;Франция. Иль-де-Франс. Париж. Шанз-Элизе;+3-214-020-50-50;MIDDLE'.split(";")),
+                   Order('56342;Хлеб, Молоко, Хлеб, Молоко;Смирнова Мария Леонидовна;Германия. Бавария. Мюнхен. Мариенплац;+4-989-234-56;LOW'.split(";")),
+                   Order('48276;Яблоки, Макароны, Яблоки;Алексеев Алексей Алексеевич;Италия. Лацио. Рим. Колизей;+3-061-234-56-78;MAX'.split(";")),
+                   Order('65829;Сок, Вода, Сок, Вода;Белова Екатерина Михайловна;Испания. Каталония. Барселона. Рамбла;+34-93-1234-567;LOW'.split(";")),
+                   Order('72901;Чай, Кофе, Чай, Кофе;Михайлов Сергей Петрович;Великобритания. Англия. Лондон. Бейкер-стрит;+4-207-946-09-58;LOW'.split(";")),
+                   Order('84756;Печенье, Сыр, Печенье, Сыр;Васильева Анна Владимировна;Япония. Шибуя. Шибуя-кроссинг;+8-131-234-5678;MAX'.split(";")),
+                   Order('90385;Макароны, Сыр, Макароны, Сыр;Николаев Николай;;+1-416-123-45-67;LOW'.split(";"))]
 
 
     def test_check_sorting_by_country_priority(self):
-        orders_adapter_1 = OrdersAdapter(file_for_reading_orders="test_orders.txt")
+        orders_adapter_1 = OrdersAdapter(orders_data=self.orders_data)
         orders_adapter_1.sort_orders_by_validity()
         orders = orders_adapter_1.valid_orders
         sorted_orders = [order.collect_order_in_str() for order in orders_adapter_1.sort_valid_orders_by_country_priority(orders)]
@@ -56,7 +65,7 @@ class OrdersAdapterTestCase(unittest.TestCase):
 
 
     def test_check_sorting_by_validity(self):
-        orders_adapter_2 = OrdersAdapter(file_for_reading_orders="test_orders.txt")
+        orders_adapter_2 = OrdersAdapter(orders_data=self.orders_data)
         orders_adapter_2.sort_orders_by_validity()
         non_valid_orders = [order.collect_order_in_str() for order in orders_adapter_2.non_valid_orders]
         valid_orders = [order.collect_order_in_str() for order in orders_adapter_2.valid_orders]
