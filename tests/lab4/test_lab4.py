@@ -41,7 +41,7 @@ class OrdersAdapterTestCase(unittest.TestCase):
 
 
     def test_check_sorting_by_country_priority(self):
-        orders_adapter_1 = OrdersAdapter(file_for_reading_orders="../../src/lab4/orders.txt")
+        orders_adapter_1 = OrdersAdapter(file_for_reading_orders="test_orders.txt")
         orders_adapter_1.sort_orders_by_validity()
         orders = orders_adapter_1.valid_orders
         sorted_orders = [order.collect_order_in_str() for order in orders_adapter_1.sort_valid_orders_by_country_priority(orders)]
@@ -56,7 +56,7 @@ class OrdersAdapterTestCase(unittest.TestCase):
 
 
     def test_check_sorting_by_validity(self):
-        orders_adapter_2 = OrdersAdapter(file_for_reading_orders="../../src/lab4/orders.txt")
+        orders_adapter_2 = OrdersAdapter(file_for_reading_orders="test_orders.txt")
         orders_adapter_2.sort_orders_by_validity()
         non_valid_orders = [order.collect_order_in_str() for order in orders_adapter_2.non_valid_orders]
         valid_orders = [order.collect_order_in_str() for order in orders_adapter_2.valid_orders]
