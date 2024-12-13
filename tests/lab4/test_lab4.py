@@ -4,6 +4,7 @@ from src.lab4.OrdersAdapter import OrdersAdapter, Order
 class OrderTestCase(unittest.TestCase):
 
     def test_order_is_valid_number_1(self):
+        """Тест валидности номера 1"""
         order_data = ("48276;Яблоки, Макароны, Яблоки;Алексеев Алексей Алексеевич;"
                       "Италия. Лацио. Рим. Колизей;+3-061-234-56-78;MAX").split(";")
         order = Order(order_data=order_data)
@@ -11,6 +12,7 @@ class OrderTestCase(unittest.TestCase):
 
 
     def test_order_is_valid_number_2(self):
+        """Тест валидности номера 2"""
         order_data = ("65829;Сок, Вода, Сок, Вода;Белова Екатерина Михайловна;"
                       "Испания. Каталония. Барселона. Рамбла;+34-93-1234-567;LOW").split(";")
         order = Order(order_data=order_data)
@@ -18,18 +20,21 @@ class OrderTestCase(unittest.TestCase):
 
 
     def test_order_is_valid_address_1(self):
+        """Тест валидности адреса 1"""
         order_data = ("31987;Сыр, Колбаса, Макароны, Сыр, Колбаса;Петрова Анна Сергеевна;"
                       "Франция. Иль-де-Франс. Париж. Шанз-Элизе;+3-214-020-50-50;MIDDLE").split(";")
         order = Order(order_data=order_data)
         self.assertTrue(order.is_valid_order_address())
 
     def test_order_is_valid_address_2(self):
+        """Тест валидности адреса 2"""
         order_data = ("84756;Печенье, Сыр, Печенье, Сыр;Васильева Анна Владимировна;"
                       "Япония. Шибуя. Шибуя-кроссинг;+8-131-234-5678;MAX").split(";")
         order = Order(order_data=order_data)
         self.assertFalse(order.is_valid_order_address())
 
     def test_order_collect_multi_goods(self):
+        """Тест для функции группировки товаров"""
         order_data = ("87459;Молоко, Яблоки, Хлеб, Яблоки, Молоко;Иванов Иван Иванович;"
                       "Россия. Московская область. Москва. улица Пушкина;+7-912-345-67-89;MAX").split(";")
         order = Order(order_data=order_data)
@@ -50,6 +55,7 @@ class OrdersAdapterTestCase(unittest.TestCase):
 
 
     def test_check_sorting_by_country_priority(self):
+        """Тест для функции сортировки заказов по странам и приоритетам"""
         orders_adapter_1 = OrdersAdapter(orders_data=self.orders_data)
         orders_adapter_1.sort_orders_by_validity()
         orders = orders_adapter_1.valid_orders
@@ -65,6 +71,7 @@ class OrdersAdapterTestCase(unittest.TestCase):
 
 
     def test_check_sorting_by_validity(self):
+        """Тест для функции сортировки заказов по валидности"""
         orders_adapter_2 = OrdersAdapter(orders_data=self.orders_data)
         orders_adapter_2.sort_orders_by_validity()
         non_valid_orders = [order.collect_order_in_str() for order in orders_adapter_2.non_valid_orders]
@@ -83,13 +90,5 @@ class OrdersAdapterTestCase(unittest.TestCase):
 
         self.assertListEqual(valid_orders, list_to_check_valid)
         self.assertListEqual(non_valid_orders, list_to_check_non_valid)
-
-
-
-
-
-
-
-
 
 
